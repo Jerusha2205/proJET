@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EcoLens — Personal Resource &amp; Carbon Optimization System</title>
+  <meta name="description" content="EcoLens estimates your everyday resource usage and shows where you can reduce cost and environmental impact." />
+  <meta name="theme-color" content="#0b2a25" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230f7b6c'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='white' stroke-width='2.4'/%3E%3Cpath d='M12 20c0-5 3-8 9-8 0 5-3 8-9 8z' fill='white'/%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="toast-region" role="status" aria-live="polite"></div>
+
+  <!-- ======================= LOGIN / CREATE ACCOUNT ======================= -->
+  <main id="view-login" class="auth" hidden>
+    <section class="auth-brand" aria-hidden="true">
+      <svg class="auth-ring" viewBox="0 0 200 200" fill="none">
+        <g transform="rotate(-90 100 100)" stroke-width="26">
+          <circle cx="100" cy="100" r="80" stroke="#0f7b6c" stroke-dasharray="187 315.65" stroke-dashoffset="0" />
+          <circle cx="100" cy="100" r="80" stroke="#efae2f" stroke-dasharray="136.7 365.95" stroke-dashoffset="-191" />
+          <circle cx="100" cy="100" r="80" stroke="#7fae3a" stroke-dasharray="121.7 380.95" stroke-dashoffset="-331.7" />
+          <circle cx="100" cy="100" r="80" stroke="#4f86c6" stroke-dasharray="41.2 461.45" stroke-dashoffset="-457.4" />
+        </g>
+      </svg>
+
+      <div class="auth-brand-top">
+        <div class="brand"><span class="logo" data-logo></span><span>EcoLens</span></div>
+        <h2 style="margin-top: 56px">Answer everyday questions. See what your habits cost.</h2>
+        <p class="lead">
+          EcoLens turns simple answers about how you travel, use power, eat and throw things away into estimates of your carbon footprint and monthly costs.
+        </p>
+      </div>
+
+      <ul class="auth-points">
+        <li><span data-icon="check"></span>No kWh or kilograms to look up</li>
+        <li><span data-icon="check"></span>Clear estimates, never false precision</li>
+        <li><span data-icon="check"></span>Test a habit change before you make it</li>
+      </ul>
+    </section>
+
+    <section class="auth-panel">
+      <div class="auth-card">
+        <div class="brand"><span class="logo" data-logo></span><span>EcoLens</span></div>
+
+        <!-- Sign in -->
+        <div id="auth-signin">
+          <h1>Welcome back</h1>
+          <p class="muted">Sign in to see your estimates and track your progress.</p>
+
+          <form id="form-login" novalidate>
+            <label class="field">
+              <span>Email or username</span>
+              <div class="input">
+                <span data-icon="mail"></span>
+                <input id="login-user" name="username" type="text" autocomplete="username" placeholder="you@example.com" />
+              </div>
+            </label>
+            <label class="field">
+              <span>Password</span>
+              <div class="input">
+                <span data-icon="lock"></span>
+                <input id="login-pass" name="password" type="password" autocomplete="current-password" placeholder="Enter any password" />
+              </div>
+            </label>
+            <p class="form-error" id="login-error" role="alert"></p>
+            <button class="btn btn-primary btn-block" type="submit">Login</button>
+          </form>
+
+          <div class="divider"><span>or</span></div>
+
+          <div class="auth-alt">
+            <button class="btn btn-secondary" type="button" data-action="show-signup">Create Account</button>
+            <button class="btn btn-ghost" type="button" data-action="guest">Continue as Guest</button>
+          </div>
+          <p class="tiny">Demo mode: any username and password works. Everything stays in this browser.</p>
+        </div>
+
+        <!-- Create account -->
+        <div id="auth-signup" hidden>
+          <h1>Create your account</h1>
+          <p class="muted">Takes a few seconds. This is a demo, so no real account is created.</p>
+
+          <form id="form-signup" novalidate>
+            <label class="field">
+              <span>Your name</span>
+              <div class="input">
+                <span data-icon="user"></span>
+                <input id="signup-name" type="text" autocomplete="name" placeholder="Alex" />
+              </div>
+            </label>
+            <label class="field">
+              <span>Email</span>
+              <div class="input">
+                <span data-icon="mail"></span>
+                <input id="signup-email" type="email" autocomplete="email" placeholder="you@example.com" />
+              </div>
+            </label>
+            <label class="field">
+              <span>Password</span>
+              <div class="input">
+                <span data-icon="lock"></span>
+                <input id="signup-pass" type="password" autocomplete="new-password" placeholder="At least 4 characters" />
+              </div>
+            </label>
+            <label class="field">
+              <span>Confirm password</span>
+              <div class="input">
+                <span data-icon="lock"></span>
+                <input id="signup-pass2" type="password" autocomplete="new-password" placeholder="Repeat your password" />
+              </div>
+            </label>
+            <p class="form-error" id="signup-error" role="alert"></p>
+            <button class="btn btn-primary btn-block" type="submit">Create Account</button>
+          </form>
+
+          <div class="divider"><span>already registered?</span></div>
+          <button class="btn btn-secondary btn-block" type="button" data-action="show-signin">Back to Login</button>
+          <p class="tiny">Passwords are never stored. Only your name is kept in this browser.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================== APP SHELL ============================== -->
+  <div id="app" class="app" hidden>
+    <aside class="sidebar">
+      <div class="brand"><span class="logo" data-logo></span><span>EcoLens</span></div>
+
+      <nav class="nav" aria-label="Main">
+        <a class="nav-item" href="#dashboard" data-route="dashboard"><span data-icon="grid"></span><span>Dashboard</span></a>
+        <a class="nav-item" href="#analysis" data-route="analysis"><span data-icon="plus"></span><span>New Analysis</span></a>
+        <a class="nav-item" href="#results" data-route="results"><span data-icon="chart"></span><span>Results</span></a>
+        <a class="nav-item" href="#whatif" data-route="whatif"><span data-icon="sliders"></span><span>What-If</span></a>
+        <a class="nav-item" href="#history" data-route="history"><span data-icon="history"></span><span>History</span></a>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="userchip">
+          <span class="avatar" id="user-avatar">E</span>
+          <div>
+            <strong id="user-name">User</strong>
+            <span class="tiny" id="user-role">Demo account</span>
+          </div>
+        </div>
+        <button class="btn btn-secondary btn-block btn-sm" type="button" data-action="logout">
+          <span data-icon="logout"></span>Logout
+        </button>
+      </div>
+    </aside>
+
+    <header class="mobilebar">
+      <div class="brand"><span class="logo" data-logo></span><span>EcoLens</span></div>
+      <div class="mobilebar-user">
+        <span id="mobile-user">User</span>
+        <button class="btn btn-secondary btn-sm" type="button" data-action="logout" aria-label="Logout">
+          <span data-icon="logout"></span>Logout
+        </button>
+      </div>
+    </header>
+
+    <main class="main" id="main" tabindex="-1">
+      <section class="view" id="view-dashboard" hidden></section>
+      <section class="view" id="view-analysis" hidden></section>
+      <section class="view" id="view-results" hidden></section>
+      <section class="view" id="view-whatif" hidden></section>
+      <section class="view" id="view-history" hidden></section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
